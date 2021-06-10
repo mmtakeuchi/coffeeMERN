@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const passport = require("../middleware/passport");
+const passport = require("passport");
 const userController = require("../controllers/userController");
 const { isAdmin } = require("../middleware/authAdmin");
 
@@ -13,9 +13,9 @@ router.get(
 );
 
 // REGISTER
-router.post("/register", usersController.register);
+router.post("/register", userController.register);
 
 // LOGIN
-router.post("/login", usersController.login);
+router.post("/login", userController.login);
 
 module.exports = router;

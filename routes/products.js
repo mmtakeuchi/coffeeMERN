@@ -1,31 +1,32 @@
 const express = require("express");
 const router = express.Router();
-const passport = require("../middleware/passport");
-const productsController = require("../controllers/productsController");
-const { isAdmin } = require("../middleware/auth");
+const passport = require("passport");
+const productController = require("../controllers/productController");
+const { isAdmin } = require("../middleware/authAdmin");
 
-router.get("/", productsController.getProducts);
+router.get("/", productController.getProducts);
 
 router.post(
   "/",
   passport.authenticate("jwt", { session: false }),
-  productsController.addProduct
+  isAdmin,
+  productController.addProduct
 );
 
-router.get("/:id", productsController.showProduct);
+router.get("/:id", productController.showProduct);
 
 router.put(
   "/:id",
   passport.authenticate("jwt", { session: false }),
   isAdmin,
-  productsController.updateProduct
+  productController.updateProduct
 );
 
 router.delete(
   "/:id",
   passport.authenticate("jwt", { session: false }),
   isAdmin,
-  productsController.deleteProduct
+  productController.deleteProduct
 );
 
 module.exports = router;

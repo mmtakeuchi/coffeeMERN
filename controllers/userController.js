@@ -4,13 +4,20 @@ const keys = require("../config/keys");
 const User = require("../models/User");
 
 // GET USER
-module.exports.getUser = (req, res) => {
-  res.json({
-    id: req.user.id,
-    name: req.user.name,
-    email: req.user.email,
-    isAdmin: req.user.isAdmin,
-  });
+module.exports.getUser = async (req, res) => {
+  const user = await User.findById(req.user.id);
+
+  if (user) {
+    res.json({
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      isAdmin: user.isAdmin,
+    });
+  } else {
+    res.status(404);
+    throw new Error("User not found");
+  }
 };
 
 // REGISTER
