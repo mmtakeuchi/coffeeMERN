@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const passport = require("../middleware/passport");
-const usersController = require("../controllers/usersController");
+const userController = require("../controllers/userController");
 const { isAdmin } = require("../middleware/authAdmin");
 
 // GET USER
@@ -9,7 +9,7 @@ router.get(
   "/current",
   passport.authenticate("jwt", { session: false }),
   isAdmin,
-  usersController.getUser
+  userController.getUser
 );
 
 // REGISTER
