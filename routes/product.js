@@ -1,10 +1,35 @@
-const { Router } = require("express");
-const itemController = require("../controllers/itemControllers");
-const router = Router();
+const express = require("express");
+const router = express.Router();
+const passport = require("passport");
+const productsController = require("../controllers/productsController");
+const { isAdmin } = require("../middleware/auth");
 
-router.get("/items", itemController.get_items);
-router.post("/items", itemController.post_item);
-router.put("/items/:id", itemController.update_item);
-router.delete("/items/:id", itemController.delete_item);
+router.get("/test", (req, res) =>
+  res.json({ msg: "This is the products route" })
+);
+
+router.get("/", productsController.getProducts);
+
+router.post(
+  "/",
+  passport.authenticate("jwt", { session: false }),
+  productsController.addProduct
+);
+
+router.get("/:id", productsController.showProduct);
+
+router.put(
+  "/:id",
+  passport.authenticate("jwt", { session: false }),
+  isAdmin,
+  productsController.updateProduct
+);
+
+router.delete(
+  "/:id",
+  passport.authenticate("jwt", { session: false }),
+  isAdmin,
+  productsController.deleteProduct
+);
 
 module.exports = router;
