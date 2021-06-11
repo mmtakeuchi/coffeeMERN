@@ -2,6 +2,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const keys = require("../config/keys");
 const User = require("../models/User");
+const { isEmail } = require("validator");
 
 // GET USER
 module.exports.getUser = async (req, res) => {
@@ -22,6 +23,10 @@ module.exports.getUser = async (req, res) => {
 
 // REGISTER
 module.exports.register = async (req, res) => {
+  if (!isEmail(req.body.email)) {
+    return res.status(400).json("Email is invalid");
+  }
+
   const user = await User.findOne({ name: req.body.name });
   if (user) {
     errors.name = "User already exists";
@@ -59,7 +64,7 @@ module.exports.register = async (req, res) => {
               }
             );
           })
-          .catch((err) => console.log(err));
+          .catch((err) => res.status(400).json(err));
       });
     });
   }
@@ -72,7 +77,7 @@ module.exports.login = async (req, res) => {
 
   const user = await User.findOne({ email });
   if (!user) {
-    return res.status(404).json({ email: "This user does not exist" });
+    return res.status(404).json("This user does not exist");
   }
 
   bcrypt.compare(password, user.password).then((isMatch) => {
@@ -92,7 +97,7 @@ module.exports.login = async (req, res) => {
         }
       );
     } else {
-      return res.status(400).json({ password: "Incorrect password" });
+      return res.status(400).json("Incorrect password");
     }
   });
 };

@@ -38,6 +38,7 @@ export const signup = (userData) => (dispatch) =>
       dispatch(getSigninUser(decoded));
     })
     .catch((err) => {
+      console.log(err.response);
       dispatch(getErrors(err.response.data));
     });
 
@@ -53,6 +54,7 @@ export const login = (userData) => (dispatch) =>
       dispatch(getCurrentuser(decoded));
     })
     .catch((err) => {
+      console.log(err.response);
       dispatch(getErrors(err.response.data));
     });
 
