@@ -23,9 +23,9 @@ const useStyles = makeStyles((theme) => ({
   },
   grow: {
     flexGrow: 1,
+    marginBottom: "5px",
   },
   menuButton: {
-    // marginRight: theme.spacing(0),
     color: "black",
   },
   title: {
@@ -205,7 +205,7 @@ const Navbar = (props) => {
 
   return (
     <div className={classes.grow}>
-      <AppBar position="static" className={classes.root}>
+      <AppBar position="static" className={classes.root} elevation={0}>
         <Toolbar>
           <IconButton
             edge="start"
@@ -259,7 +259,7 @@ const Navbar = (props) => {
               aria-label="account of current user"
               aria-controls={menuId}
               aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
+              onClick={() => history.push(`/cart/${props.current.user.id}`)}
               // color="inherit"
             >
               <Badge badgeContent={4} color="secondary">
