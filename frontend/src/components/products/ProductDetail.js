@@ -33,6 +33,7 @@ const useStyles = makeStyles((theme) => ({
   quantity: {
     width: "6em",
     textAlign: "left",
+    marginBottom: "1em",
   },
   button: {
     background: "orange",
@@ -54,7 +55,7 @@ const ProductDetail = (props) => {
   const current = useSelector((state) => state.session);
   console.log(product, current);
 
-  useEffect(() => dispatch(getProduct(productId)), []);
+  useEffect(() => dispatch(getProduct(productId)), [dispatch, productId]);
   console.log(props);
 
   const handleChange = (event) => {
@@ -85,7 +86,7 @@ const ProductDetail = (props) => {
         console.log("Sign In to Add Item to Cart.");
       } else {
         console.log("clicked");
-        //   history.push(`/cart/${current.user.id}`)
+        // history.push(`/cart/${current.user.id}`);
       }
     } else {
       return;

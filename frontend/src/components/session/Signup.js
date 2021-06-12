@@ -6,9 +6,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import FormControl from "@material-ui/core/FormControl";
 import FormHelperText from "@material-ui/core/FormHelperText";
-import Input from "@material-ui/core/Input";
 import TextField from "@material-ui/core/TextField";
-import InputLabel from "@material-ui/core/InputLabel";
 import Button from "@material-ui/core/Button";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 
@@ -192,8 +190,8 @@ const Signup = (props) => {
               className={classes.inputField}
               error={values.passwordError ? true : null}
             >
-              <InputLabel htmlFor="password">Password</InputLabel>
-              <Input
+              <TextField
+                label="Password"
                 error={values.passwordError ? true : null}
                 name="password"
                 type="password"
@@ -201,6 +199,7 @@ const Signup = (props) => {
                 value={values.password}
                 onChange={handleInputChange}
               />
+
               <FormHelperText id="my-helper-text">
                 {values.passwordError ? (
                   <div className="error">{values.passwordError}</div>
@@ -214,10 +213,8 @@ const Signup = (props) => {
               className={classes.inputField}
               error={values.passwordConfirmationError ? true : null}
             >
-              <InputLabel htmlFor="passwordConfirmation">
-                Password Confirmation
-              </InputLabel>
-              <Input
+              <TextField
+                label="Password"
                 error={values.passwordConfirmationError ? true : null}
                 name="passwordConfirmation"
                 type="password"
@@ -225,6 +222,7 @@ const Signup = (props) => {
                 value={values.passwordConfirmation}
                 onChange={handleInputChange}
               />
+
               <FormHelperText id="my-helper-text">
                 {values.passwordConfirmationError ? (
                   <div className="error">
@@ -239,7 +237,7 @@ const Signup = (props) => {
               variant="outlined"
               type="submit"
               color="primary"
-              // className={classes.button}
+              className={classes.button}
               startIcon={<AddCircleOutlineIcon />}
             >
               Create Account

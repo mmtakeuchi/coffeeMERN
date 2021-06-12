@@ -1,4 +1,5 @@
 const Product = require("../models/Product");
+const { cloudinary } = require("../cloudinary/index");
 
 module.exports.getProducts = async (req, res) => {
   const products = await Product.find({}).sort({ date: -1 });
@@ -10,10 +11,25 @@ module.exports.addProduct = async (req, res) => {
   console.log(req.body);
 
   const product = new Product(req.body);
-  console.log(product);
+  // console.log(product);
+
+  if (req.body.image !== "") {
+    const file = req.body.image;
+
+    const uploadedResponse = await cloudinary.uploader.upload(file, {
+      upload_preset: "x4argbkt",
+    });
+
+    if (!uploadedResponse) {
+      return res.status(500).json("Could not upload image.");
+    } else {
+      product.image = uploadedResponse.secure_url;
+    }
+  }
 
   const newProduct = await product.save();
 
+  console.log(newProduct);
   if (newProduct) {
     return res.status(201).json(newProduct);
   }

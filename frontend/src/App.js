@@ -5,6 +5,7 @@ import Signup from "./components/session/Signup";
 import Login from "./components/session/Login";
 import Products from "./components/products/Products";
 import ProductDetail from "./components/products/ProductDetail";
+import NewProduct from "./components/products/NewProduct";
 import Cart from "./components/cart/Cart";
 import { CssBaseline, Container } from "@material-ui/core";
 
@@ -20,6 +21,7 @@ function App() {
           <Route exact path="/login" component={Login} />
 
           <Route exact path="/products" component={Products} />
+          <Route exact path="/products/new" component={NewProduct} />
           <Route path="/products/:id" component={ProductDetail} />
 
           <Route path="/cart/:id" component={Cart} />
