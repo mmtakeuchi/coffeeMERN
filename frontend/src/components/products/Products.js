@@ -16,9 +16,9 @@ class Products extends React.Component {
     if (products) {
       if (products.length > 0) {
         return products.map((product, i) => (
-          <div key={i}>
+          <Grid item key={i} xs={6} sm={4}>
             <Product product={product} />
-          </div>
+          </Grid>
         ));
       }
     }
@@ -38,7 +38,9 @@ class Products extends React.Component {
         >
           ADD NEW PRODUCT
         </Button>
-        <div>{this.renderProducts()}</div>
+        <Grid container spacing={4}>
+          {this.renderProducts()}
+        </Grid>
       </div>
     );
   }

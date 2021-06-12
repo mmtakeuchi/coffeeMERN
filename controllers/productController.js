@@ -8,10 +8,7 @@ module.exports.getProducts = async (req, res) => {
 };
 
 module.exports.addProduct = async (req, res) => {
-  console.log(req.body);
-
   const product = new Product(req.body);
-  // console.log(product);
 
   if (req.body.image !== "") {
     const file = req.body.image;
@@ -29,7 +26,6 @@ module.exports.addProduct = async (req, res) => {
 
   const newProduct = await product.save();
 
-  console.log(newProduct);
   if (newProduct) {
     return res.status(201).json(newProduct);
   }
