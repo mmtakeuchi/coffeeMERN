@@ -35,7 +35,7 @@ const productReducer = (state = initialState, action) => {
       console.log(action.updatedProduct);
       console.log(state);
       let items = [...state.products].filter(
-        (product) => product.id !== action.updatedProduct._id
+        (product) => product._id !== action.updatedProduct._id
       );
       return {
         ...state,

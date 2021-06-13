@@ -3,9 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import { getProduct } from "../../actions/productActions";
 import { makeStyles } from "@material-ui/core/styles";
-import { Paper, Button, TextField } from "@material-ui/core/";
-
-import Grid from "@material-ui/core/Grid";
+import { Paper, Button, TextField, Grid } from "@material-ui/core/";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -109,6 +107,13 @@ const ProductDetail = (props) => {
             </Grid>
             <Grid item xs={12} sm={6}>
               <Paper className={classes.paper}>
+                <Button
+                  onClick={() =>
+                    history.push(`/products/${product._id}/update`)
+                  }
+                >
+                  Update
+                </Button>
                 <h1 className={classes.title}>{product.title}</h1>
                 <h3>
                   {product.category

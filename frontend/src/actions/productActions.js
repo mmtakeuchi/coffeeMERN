@@ -80,11 +80,12 @@ export const deleteProduct = (productId) => (dispatch) => {
 };
 
 export const updateProduct = (productId, updatedProduct) => (dispatch) => {
+  console.log(productId, updatedProduct);
   axios
     .put(`/api/products/${productId}`, updatedProduct)
     .then((res) => {
       console.log(res.data);
       dispatch(updateItem(res.data));
     })
-    .catch((err) => dispatch(receiveErrors(err.response.data)));
+    .catch((err) => dispatch(receiveErrors(err)));
 };

@@ -43,6 +43,28 @@ module.exports.showProduct = async (req, res) => {
 };
 
 module.exports.updateProduct = async (req, res) => {
+  console.log(req.params, req.body);
+
+  // if (req.body.image !== "") {
+  //   const file = req.body.image;
+
+  //   const uploadedResponse = await cloudinary.uploader.upload(file, {
+  //     upload_preset: "x4argbkt",
+  //   });
+
+  //   if (!uploadedResponse) {
+  //     return res.status(500).json("Could not upload image.");
+  //   } else {
+  //     product.image = uploadedResponse.secure_url;
+  //   }
+  // }
+
+  // const newProduct = await product.save();
+
+  // if (newProduct) {
+  //   return res.status(201).json(newProduct);
+  // }
+  // return res.status(500).send({ message: " Error in Creating Product." });
   try {
     const productId = req.params.id;
     const update = req.body;
@@ -52,14 +74,11 @@ module.exports.updateProduct = async (req, res) => {
       new: true,
     });
 
-    res.status(200).json({
-      product: updatedProduct,
-      message: "Product has been updated successfully!",
-    });
+    res.status(200).send(updatedProduct);
   } catch (error) {
-    res.status(400).json({
-      error: "Your request could not be processed. Please try again.",
-    });
+    res
+      .status(400)
+      .send("Your request could not be processed. Please try again.");
   }
 };
 
