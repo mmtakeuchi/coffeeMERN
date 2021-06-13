@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 
 export class Cart extends Component {
   render() {
+    console.log(this);
     return <div>Cart</div>;
   }
 }

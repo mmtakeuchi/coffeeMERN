@@ -144,6 +144,10 @@ const Navbar = (props) => {
     }
   };
 
+  const goToCart = (e) => {
+    history.push(`/cart/${props.current.user._id}`);
+  };
+
   const menuId = "primary-search-account-menu";
   const renderMenu = (
     <Menu
@@ -245,7 +249,10 @@ const Navbar = (props) => {
               aria-label="account of current user"
               aria-controls={menuId}
               aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
+              // onClick={handleProfileMenuOpen}
+              onClick={
+                props.current.isAuthenticated ? goToCart : handleProfileMenuOpen
+              }
               // color="inherit"
             >
               <Badge badgeContent={4} color="secondary">
