@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
-import { getProduct } from "../../actions/productActions";
+import { getProduct, deleteProduct } from "../../actions/productActions";
 import { makeStyles } from "@material-ui/core/styles";
 import { Paper, Button, TextField, Grid } from "@material-ui/core/";
 
@@ -91,6 +91,11 @@ const ProductDetail = (props) => {
     }
   };
 
+  const handleDelete = () => {
+    dispatch(deleteProduct(productId));
+    history.push("/products");
+  };
+
   return (
     <React.Fragment>
       {product && (
@@ -114,6 +119,7 @@ const ProductDetail = (props) => {
                 >
                   Update
                 </Button>
+                <Button onClick={handleDelete}>Delete</Button>
                 <h1 className={classes.title}>{product.title}</h1>
                 <h3>
                   {product.category

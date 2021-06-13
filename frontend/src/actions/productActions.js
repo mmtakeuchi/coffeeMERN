@@ -76,7 +76,7 @@ export const deleteProduct = (productId) => (dispatch) => {
       console.log(res);
       dispatch(deleteItem(productId));
     })
-    .catch((err) => dispatch(receiveErrors(err.response.data)));
+    .catch((err) => dispatch(receiveErrors(err)));
 };
 
 export const updateProduct = (productId, updatedProduct) => (dispatch) => {
