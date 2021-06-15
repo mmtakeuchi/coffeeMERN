@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { getProduct, deleteProduct } from "../../actions/productActions";
+import { addToCart } from "../../actions/cartActions";
 import { makeStyles } from "@material-ui/core/styles";
 import { Paper, Button, TextField, Grid } from "@material-ui/core/";
 
@@ -83,8 +84,8 @@ const ProductDetail = (props) => {
       if (!current.isAuthenticated) {
         console.log("Sign In to Add Item to Cart.");
       } else {
-        console.log("clicked");
-        // history.push(`/cart/${current.user.id}`);
+        dispatch(addToCart(current.user.id, product._id, quantity));
+        history.push(`/cart`);
       }
     } else {
       return;

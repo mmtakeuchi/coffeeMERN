@@ -14,14 +14,14 @@ const CartSchema = new Schema({
         required: true,
         ref: "Product",
       },
-      name: { type: String, required: true },
+      title: { type: String, required: true },
       price: { type: Number, required: true },
       quantity: {
         type: Number,
         required: true,
         default: 1,
       },
-      image: { type: String, required: true },
+      image: { type: String },
     },
   ],
   bill: {

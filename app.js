@@ -28,7 +28,7 @@ app.use(express.urlencoded({ limit: "50mb", extended: true }));
 
 app.use("/api/users", userRoutes);
 app.use("/api/products", productRoutes);
-app.use("/api/carts", cartRoutes);
+app.use("/api/cart", cartRoutes);
 app.use("/api/orders", orderRoutes);
 
 app.listen(port, () => console.log(`Server is running on port ${port}`));

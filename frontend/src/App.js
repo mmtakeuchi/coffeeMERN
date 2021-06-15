@@ -26,7 +26,7 @@ function App() {
           <Route path="/products/:id/update" component={UpdateProduct} />
           <Route path="/products/:id" component={ProductDetail} />
 
-          <Route path="/cart/:id" component={Cart} />
+          <Route path="/cart" component={Cart} />
         </Switch>
       </Container>
     </div>

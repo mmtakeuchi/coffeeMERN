@@ -145,7 +145,7 @@ const Navbar = (props) => {
   };
 
   const goToCart = (e) => {
-    history.push(`/cart/${props.current.user._id}`);
+    history.push(`/cart`);
   };
 
   const menuId = "primary-search-account-menu";
@@ -176,7 +176,7 @@ const Navbar = (props) => {
       onClose={handleMobileMenuClose}
     >
       <MenuItem>
-        <Button>
+        <Button onClick={handleMobileMenuClose}>
           <Link to="/products" className={classes.links}>
             Shop
           </Link>
@@ -189,14 +189,14 @@ const Navbar = (props) => {
       ) : (
         <div>
           <MenuItem>
-            <Button>
+            <Button onClick={handleMobileMenuClose}>
               <Link to="/signup" className={classes.links}>
                 Signup
               </Link>
             </Button>
           </MenuItem>
           <MenuItem>
-            <Button>
+            <Button onClick={handleMobileMenuClose}>
               <Link to="/login" className={classes.links}>
                 Login
               </Link>
@@ -249,10 +249,10 @@ const Navbar = (props) => {
               aria-label="account of current user"
               aria-controls={menuId}
               aria-haspopup="true"
-              // onClick={handleProfileMenuOpen}
-              onClick={
-                props.current.isAuthenticated ? goToCart : handleProfileMenuOpen
-              }
+              onClick={goToCart}
+              // onClick={
+              //   props.current.isAuthenticated ? goToCart : handleProfileMenuOpen
+              // }
               // color="inherit"
             >
               <Badge badgeContent={4} color="secondary">
@@ -266,7 +266,7 @@ const Navbar = (props) => {
               aria-label="account of current user"
               aria-controls={menuId}
               aria-haspopup="true"
-              onClick={() => history.push(`/cart/${props.current.user.id}`)}
+              onClick={() => history.push(`/cart`)}
               // color="inherit"
             >
               <Badge badgeContent={4} color="secondary">
