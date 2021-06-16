@@ -51,7 +51,8 @@ module.exports.addCartItem = async (req, res) => {
           price,
         });
       }
-      cart.bill += parseFloar(parseInt(count) * price).toFixed(2);
+      cart.bill += parseInt(count) * price;
+      cart.bill = parseFloat(cart.bill.toFixed(2));
       cart = await cart.save();
       return res.status(201).send(cart);
     } else {
@@ -61,7 +62,7 @@ module.exports.addCartItem = async (req, res) => {
         products: [
           { product: productId, title, quantity: parseInt(count), price },
         ],
-        bill: parseFloat(parseInt(count) * price).toFixed(2),
+        bill: parseFloat((parseInt(count) * price).toFixed(2)),
       });
       return res.status(201).send(newCart);
     }

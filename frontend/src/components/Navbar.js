@@ -255,7 +255,10 @@ const Navbar = (props) => {
               // }
               // color="inherit"
             >
-              <Badge badgeContent={4} color="secondary">
+              <Badge
+                badgeContent={props.cart ? props.cart.products.length : null}
+                color="secondary"
+              >
                 <ShoppingCartOutlinedIcon />
               </Badge>
             </IconButton>
@@ -269,7 +272,10 @@ const Navbar = (props) => {
               onClick={() => history.push(`/cart`)}
               // color="inherit"
             >
-              <Badge badgeContent={4} color="secondary">
+              <Badge
+                badgeContent={props.cart ? props.cart.products.length : null}
+                color="secondary"
+              >
                 <ShoppingCartOutlinedIcon />
               </Badge>
             </IconButton>
@@ -293,6 +299,7 @@ const Navbar = (props) => {
 
 const mapStateToProps = (state) => ({
   current: state.session,
+  cart: state.cart.cart,
 });
 
 const mapDispatchToProps = (dispatch) => ({
