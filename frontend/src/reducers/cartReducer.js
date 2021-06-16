@@ -7,6 +7,7 @@ import {
 
 const initialState = {
   cart: null,
+  loading: false,
   errors: [],
 };
 
@@ -17,9 +18,16 @@ const cartReducer = (state = initialState, action) => {
       return {
         ...state,
         cart: action.cart,
+        loading: false,
       };
 
     case ADD_TO_CART:
+      console.log(action.cart);
+      return {
+        ...state,
+        cart: action.cart,
+      };
+    case DELETE_FROM_CART:
       console.log(action.cart);
       return {
         ...state,

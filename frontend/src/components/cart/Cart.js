@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getCart } from "../../actions/cartActions";
+import { getCart, deleteFromCart } from "../../actions/cartActions";
 import { makeStyles } from "@material-ui/core/styles";
-import { Container } from "@material-ui/core";
+import { Button } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -14,6 +14,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Cart = (props) => {
   console.log(props);
+
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart.cart);
   const current = useSelector((state) => state.session);
@@ -25,7 +26,13 @@ const Cart = (props) => {
     if (current.isAuthenticated) {
       dispatch(getCart(userId));
     }
-  }, [dispatch, userId]);
+  }, []);
+
+  const handleDelete = (userId, product) => {
+    console.log("DELETE");
+    console.log(userId, product);
+    dispatch(deleteFromCart(userId, product));
+  };
 
   return (
     <div className={classes.root}>
@@ -40,8 +47,16 @@ const Cart = (props) => {
       {current.isAuthenticated && cart ? (
         <div>
           {cart.products.map((product, i) => (
-            <div key={i}>{product.title}</div>
+            <div key={i}>
+              <span>{product.title}</span>
+              <Button
+                onClick={handleDelete.bind(this, current.user.id, product)}
+              >
+                Delete
+              </Button>
+            </div>
           ))}
+          Total: {cart.bill}
         </div>
       ) : null}
     </div>

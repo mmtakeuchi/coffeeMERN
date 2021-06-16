@@ -36,31 +36,32 @@ module.exports.addCartItem = async (req, res) => {
       let itemIndex = cart.products.findIndex(
         (p) => p.product._id == productId
       );
-      console.log(itemIndex);
 
       // Check if product exists or not
       if (itemIndex > -1) {
         let productItem = cart.products[itemIndex];
         console.log(productItem);
-        productItem.quantity += count;
+        productItem.quantity += parseInt(count);
         cart.products[itemIndex] = productItem;
       } else {
         cart.products.push({
-          product: productId._id,
+          product: productId,
           title,
-          quantity: count,
+          quantity: parseInt(count),
           price,
         });
       }
-      cart.bill += count * price;
+      cart.bill += parseFloar(parseInt(count) * price).toFixed(2);
       cart = await cart.save();
       return res.status(201).send(cart);
     } else {
       // no cart exists, create one
       const newCart = await Cart.create({
         user: userId,
-        products: [{ product: productId._id, title, quantity: count, price }],
-        bill: count * price,
+        products: [
+          { product: productId, title, quantity: parseInt(count), price },
+        ],
+        bill: parseFloat(parseInt(count) * price).toFixed(2),
       });
       return res.status(201).send(newCart);
     }
@@ -81,7 +82,9 @@ module.exports.deleteItem = async (req, res) => {
     let itemIndex = cart.products.findIndex((p) => p.product._id == productId);
     if (itemIndex > -1) {
       let productItem = cart.products[itemIndex];
-      cart.bill -= productItem.quantity * productItem.price;
+      cart.bill -= parseFloat(productItem.quantity * productItem.price).toFixed(
+        2
+      );
       cart.products.splice(itemIndex, 1);
     }
     cart = await cart.save();

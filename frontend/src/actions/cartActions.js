@@ -53,10 +53,10 @@ export const addToCart = (userId, productId, count) => (dispatch) => {
     });
 };
 
-export const deleteFromCart = (userId, productId, count) => (dispatch) => {
-  console.log(userId, productId, count);
+export const deleteFromCart = (userId, product) => (dispatch) => {
+  console.log(userId, product);
   axios
-    .delete(`api/cart/${userId}/${productId}`, count)
+    .delete(`api/cart/${userId}/${product.product}`)
     .then((res) => {
       console.log(res.data);
       deleteCartItem(res.data);
