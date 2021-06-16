@@ -52,3 +52,14 @@ export const addToCart = (userId, productId, count) => (dispatch) => {
       dispatch(receiveErrors(err));
     });
 };
+
+export const deleteFromCart = (userId, productId, count) => (dispatch) => {
+  console.log(userId, productId, count);
+  axios
+    .delete(`api/cart/${userId}/${productId}`, count)
+    .then((res) => {
+      console.log(res.data);
+      deleteCartItem(res.data);
+    })
+    .catch((err) => dispatch(receiveErrors(err)));
+};

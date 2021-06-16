@@ -4,7 +4,7 @@ const Product = require("../models/Product");
 module.exports.getCartItems = async (req, res) => {
   try {
     let cart = await Cart.findOne({ user: req.user._id });
-    console.log(cart);
+
     if (cart && cart.products.length > 0) {
       res.send(cart);
     } else {
@@ -18,14 +18,12 @@ module.exports.getCartItems = async (req, res) => {
 
 module.exports.addCartItem = async (req, res) => {
   const userId = req.user._id;
-  console.log(req.body);
   const { productId, count } = req.body;
-  console.log(`productId: ${productId}, count: ${count}`);
 
   try {
     let cart = await Cart.findOne({ user: userId });
     let item = await Product.findOne({ _id: productId });
-    console.log(cart, item);
+
     if (!item) {
       res.status(404).send("Item not found!");
     }
@@ -34,17 +32,25 @@ module.exports.addCartItem = async (req, res) => {
 
     if (cart) {
       // if cart exists for the user
+      cart.products.map((p) => console.log(p.product._id == productId));
       let itemIndex = cart.products.findIndex(
-        (p) => p.product._id === productId
+        (p) => p.product._id == productId
       );
+      console.log(itemIndex);
 
       // Check if product exists or not
       if (itemIndex > -1) {
         let productItem = cart.products[itemIndex];
+        console.log(productItem);
         productItem.quantity += count;
         cart.products[itemIndex] = productItem;
       } else {
-        cart.products.push({ productId, title, count, price });
+        cart.products.push({
+          product: productId._id,
+          title,
+          quantity: count,
+          price,
+        });
       }
       cart.bill += count * price;
       cart = await cart.save();
@@ -53,7 +59,7 @@ module.exports.addCartItem = async (req, res) => {
       // no cart exists, create one
       const newCart = await Cart.create({
         user: userId,
-        products: [{ product: productId, title, count, price }],
+        products: [{ product: productId._id, title, quantity: count, price }],
         bill: count * price,
       });
       return res.status(201).send(newCart);
@@ -65,11 +71,14 @@ module.exports.addCartItem = async (req, res) => {
 };
 
 module.exports.deleteItem = async (req, res) => {
+  console.log(req.user, req.params);
   const userId = req.user._id;
-  const productId = req.params.itemId;
+  const productId = req.params.productId;
+
   try {
-    let cart = await Cart.findOne({ userId });
-    let itemIndex = cart.products.findIndex((p) => p.productId == productId);
+    let cart = await Cart.findOne({ user: userId });
+    console.log(cart);
+    let itemIndex = cart.products.findIndex((p) => p.product._id == productId);
     if (itemIndex > -1) {
       let productItem = cart.products[itemIndex];
       cart.bill -= productItem.quantity * productItem.price;
