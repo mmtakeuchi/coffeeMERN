@@ -1,7 +1,8 @@
-import React from "react";
-import { connect } from "react-redux";
+import React, { useEffect } from "react";
+import { connect, useDispatch } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import { logout } from "../actions/sessionActions";
+import { getCart } from "../actions/cartActions";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -97,7 +98,10 @@ const useStyles = makeStyles((theme) => ({
 const Navbar = (props) => {
   console.log(props);
   const history = useHistory();
+  const dispatch = useDispatch();
   const classes = useStyles();
+
+  useEffect(() => dispatch(getCart(props.current.user.id)), []);
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -263,7 +267,7 @@ const Navbar = (props) => {
               // }
               // color="inherit"
             >
-              <Badge badgeContent={cartProducts()} color="secondary">
+              <Badge badgeContent={cartProducts()} color="primary">
                 <ShoppingCartOutlinedIcon />
               </Badge>
             </IconButton>
@@ -277,7 +281,7 @@ const Navbar = (props) => {
               onClick={() => history.push(`/cart`)}
               // color="inherit"
             >
-              <Badge badgeContent={cartProducts()} color="secondary">
+              <Badge badgeContent={cartProducts()} color="primary">
                 <ShoppingCartOutlinedIcon />
               </Badge>
             </IconButton>
@@ -306,6 +310,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   logout: () => dispatch(logout()),
+  getCart: (userId) => dispatch(getCart(userId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Navbar);

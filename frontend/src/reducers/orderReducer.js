@@ -12,6 +12,12 @@ const orderReducer = (state = initialState, action) => {
         ...state,
         orders: action.orders,
       };
+    case CHECKOUT:
+      console.log(action.order);
+      return {
+        ...state,
+        orders: action.order,
+      };
     default:
       return state;
   }

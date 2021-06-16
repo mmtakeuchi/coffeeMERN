@@ -2,6 +2,7 @@ import {
   GET_CART,
   ADD_TO_CART,
   DELETE_FROM_CART,
+  CART_LOADING,
   RECEIVE_CART_ERRORS,
 } from "../actions/cartActions";
 
@@ -32,6 +33,11 @@ const cartReducer = (state = initialState, action) => {
       return {
         ...state,
         cart: action.cart,
+      };
+    case CART_LOADING:
+      return {
+        ...state,
+        loading: true,
       };
     case RECEIVE_CART_ERRORS:
       return {

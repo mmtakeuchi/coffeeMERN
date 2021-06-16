@@ -73,13 +73,12 @@ module.exports.addCartItem = async (req, res) => {
 };
 
 module.exports.deleteItem = async (req, res) => {
-  console.log(req.user, req.params);
   const userId = req.user._id;
   const productId = req.params.productId;
 
   try {
     let cart = await Cart.findOne({ user: userId });
-    console.log(cart);
+
     let itemIndex = cart.products.findIndex((p) => p.product._id == productId);
     if (itemIndex > -1) {
       let productItem = cart.products[itemIndex];
@@ -89,6 +88,7 @@ module.exports.deleteItem = async (req, res) => {
       cart.products.splice(itemIndex, 1);
     }
     cart = await cart.save();
+    console.log(cart);
     return res.status(201).send(cart);
   } catch (err) {
     console.log(err);

@@ -3,6 +3,7 @@ import axios from "axios";
 export const GET_CART = "GET_CART";
 export const ADD_TO_CART = "ADD_TO_CART";
 export const DELETE_FROM_CART = "DELETE_FROM_CART";
+export const CART_LOADING = "CART_LOADING";
 export const RECEIVE_CART_ERRORS = "RECEIVE_CART_ERRORS";
 
 export const getCartItems = (cart) => ({
@@ -25,8 +26,15 @@ export const receiveErrors = (errors) => ({
   errors,
 });
 
+export const setCartLoading = () => {
+  return {
+    type: CART_LOADING,
+  };
+};
+
 export const getCart = (userId) => (dispatch) => {
-  console.log(userId);
+  dispatch(setCartLoading());
+
   axios
     .get(`/api/cart/${userId}`)
     .then((res) => {
@@ -54,7 +62,6 @@ export const addToCart = (userId, productId, count) => (dispatch) => {
 };
 
 export const deleteFromCart = (userId, product) => (dispatch) => {
-  console.log(userId, product);
   axios
     .delete(`api/cart/${userId}/${product.product}`)
     .then((res) => {

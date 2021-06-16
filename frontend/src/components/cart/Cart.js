@@ -43,24 +43,29 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Cart = (props) => {
-  console.log(props);
+  const [load, setLoad] = useState(false);
   const tax = 0.05;
   const dispatch = useDispatch();
-  const cart = useSelector((state) => state.cart.cart);
+  const cart = useSelector((state) => state.cart);
   const current = useSelector((state) => state.session);
   const userId = current.user.id;
   const classes = useStyles();
-  console.log(cart, current);
+  console.log(cart.loading);
+  console.log(load, cart, current);
 
   useEffect(() => {
-    if (current.isAuthenticated) {
-      dispatch(getCart(userId));
+    if (current.isAuthenticated && !cart.loading && !load) {
+      getCartItems();
     }
-  }, []);
+  }, [cart, load]);
+
+  const getCartItems = async () => {
+    await dispatch(getCart(userId));
+    setLoad(false);
+  };
 
   const handleDelete = (userId, product) => {
     console.log("DELETE");
-    console.log(userId, product);
     dispatch(deleteFromCart(userId, product));
   };
 
@@ -72,13 +77,13 @@ const Cart = (props) => {
     <div className={classes.root}>
       {current.isAuthenticated ? (
         <React.Fragment>
-          {cart ? null : <div>Your cart is empty!</div>}
+          {cart.cart ? null : <div>Your cart is empty!</div>}
         </React.Fragment>
       ) : (
         <div>Log In to View Your Cart</div>
       )}
 
-      {current.isAuthenticated && cart ? (
+      {current.isAuthenticated && cart.cart ? (
         <div>
           <TableContainer component={Paper}>
             <Table className={classes.table} aria-label="customized table">
@@ -91,7 +96,7 @@ const Cart = (props) => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {cart.products.map((product, i) => (
+                {cart.cart.products.map((product, i) => (
                   <StyledTableRow key={i}>
                     <StyledTableCell component="th" scope="row">
                       {product.title}
@@ -100,7 +105,10 @@ const Cart = (props) => {
                       {product.quantity}
                     </StyledTableCell>
                     <StyledTableCell align="right">
-                      ${parseFloat((product.price * product.price).toFixed(2))}
+                      $
+                      {parseFloat(
+                        (product.quantity * product.price).toFixed(2)
+                      )}
                     </StyledTableCell>
                     <StyledTableCell align="right">
                       <Button
@@ -119,19 +127,23 @@ const Cart = (props) => {
                 <TableRow>
                   <TableCell rowSpan={3} />
                   <TableCell colSpan={2}>Subtotal</TableCell>
-                  <TableCell align="right">${cart.bill}</TableCell>
+                  <TableCell align="right">
+                    ${parseFloat(cart.cart.bill.toFixed(2))}
+                  </TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell>Tax</TableCell>
                   <TableCell align="right">{tax * 100}%</TableCell>
                   <TableCell align="right">
-                    ${parseFloat((cart.bill * tax).toFixed(2))}
+                    ${parseFloat((cart.cart.bill * tax).toFixed(2))}
                   </TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell colSpan={2}>Total</TableCell>
                   <TableCell align="right">
-                    ${cart.bill + parseFloat((cart.bill * tax).toFixed(2))}
+                    $
+                    {parseFloat(cart.cart.bill.toFixed(2)) +
+                      parseFloat((cart.cart.bill * tax).toFixed(2))}
                   </TableCell>
                 </TableRow>
                 <TableRow>
