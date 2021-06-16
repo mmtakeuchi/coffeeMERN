@@ -148,6 +148,14 @@ const Navbar = (props) => {
     history.push(`/cart`);
   };
 
+  const cartProducts = () => {
+    if (props.cart) {
+      return props.cart.products.reduce((total, el) => total + el.quantity, 0);
+    } else {
+      return null;
+    }
+  };
+
   const menuId = "primary-search-account-menu";
   const renderMenu = (
     <Menu
@@ -255,10 +263,7 @@ const Navbar = (props) => {
               // }
               // color="inherit"
             >
-              <Badge
-                badgeContent={props.cart ? props.cart.products.length : null}
-                color="secondary"
-              >
+              <Badge badgeContent={cartProducts()} color="secondary">
                 <ShoppingCartOutlinedIcon />
               </Badge>
             </IconButton>
@@ -272,10 +277,7 @@ const Navbar = (props) => {
               onClick={() => history.push(`/cart`)}
               // color="inherit"
             >
-              <Badge
-                badgeContent={props.cart ? props.cart.products.length : null}
-                color="secondary"
-              >
+              <Badge badgeContent={cartProducts()} color="secondary">
                 <ShoppingCartOutlinedIcon />
               </Badge>
             </IconButton>
