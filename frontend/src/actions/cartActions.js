@@ -38,11 +38,9 @@ export const getCart = (userId) => (dispatch) => {
   axios
     .get(`/api/cart/${userId}`)
     .then((res) => {
-      console.log(res);
       dispatch(getCartItems(res.data));
     })
     .catch((err) => {
-      console.log(err);
       dispatch(receiveErrors(err));
     });
 };
@@ -52,11 +50,9 @@ export const addToCart = (userId, productId, count) => (dispatch) => {
   axios
     .post(`api/cart/${userId}`, { productId, count })
     .then((res) => {
-      console.log(res.data);
       dispatch(addCartItem(res.data));
     })
     .catch((err) => {
-      console.log(err);
       dispatch(receiveErrors(err));
     });
 };
@@ -65,7 +61,6 @@ export const deleteFromCart = (userId, product) => (dispatch) => {
   axios
     .delete(`api/cart/${userId}/${product.product}`)
     .then((res) => {
-      console.log(res.data);
       deleteCartItem(res.data);
     })
     .catch((err) => dispatch(receiveErrors(err)));

@@ -8,6 +8,7 @@ import ProductDetail from "./components/products/ProductDetail";
 import NewProduct from "./components/products/NewProduct";
 import UpdateProduct from "./components/products/UpdateProduct";
 import Cart from "./components/cart/Cart";
+import Orders from "./components/orders/Orders";
 import { CssBaseline, Container } from "@material-ui/core";
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
           <Route path="/products/:id" component={ProductDetail} />
 
           <Route path="/cart" component={Cart} />
+          <Route path="/orders" component={Orders} />
         </Switch>
       </Container>
     </div>

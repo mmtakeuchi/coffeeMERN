@@ -4,9 +4,10 @@ const User = require("../models/User");
 const keys = require("../config/keys");
 const stripe = require("stripe")(keys.stripeKey);
 
-module.exports.getOrder = async (req, res) => {
-  const order = await Order.findById(req.params.id);
-  console.log(order);
+module.exports.getOrders = async (req, res) => {
+  const userId = req.params.id;
+  const order = await Order.find({ userId });
+
   if (order) {
     res.send(order);
   } else {
@@ -16,10 +17,13 @@ module.exports.getOrder = async (req, res) => {
 
 module.exports.checkout = async (req, res) => {
   try {
+    console.log(req.body);
+    console.log(req.params);
     const { source } = req.body;
     const userId = req.params.id;
-    let user = await User.findById(userId);
-    let cart = await Cart.findById(userId);
+    let user = await User.findOne({ userId });
+    let cart = await Cart.findOne({ _id: userId });
+    console.log(user, cart);
 
     if (cart) {
       const charge = await stripe.charges.create({
@@ -31,17 +35,19 @@ module.exports.checkout = async (req, res) => {
       if (!charge) throw Error("Payment failed.");
       if (charge) {
         const order = await Order.create({
-          userId,
-          products: cart.items,
+          user: userId,
+          products: cart.products,
           bill: cart.bill,
         });
-        const data = await Cart.findByIdAndDelete(card.id);
+        console.log(order);
+        const data = await Cart.findByIdAndDelete({ _id: cart.id });
         return res.status(201).send(order);
       }
     } else {
       res.status(500).send({ message: "Could not retrieve cart." });
     }
   } catch (err) {
+    console.log(err);
     res.status(500).send("Something went wrong with checking out.");
   }
 };

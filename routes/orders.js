@@ -6,7 +6,7 @@ const orderController = require("../controllers/orderController");
 router.get(
   "/:id",
   passport.authenticate("jwt", { session: false }),
-  orderController.getOrder
+  orderController.getOrders
 );
 
 router.post(

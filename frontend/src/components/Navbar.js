@@ -98,7 +98,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Navbar = (props) => {
-  console.log(props);
   const history = useHistory();
   const dispatch = useDispatch();
   const classes = useStyles();
@@ -130,7 +129,16 @@ const Navbar = (props) => {
 
   const authenticatedLinks = () => {
     if (props.current.isAuthenticated) {
-      return <Button onClick={() => props.logout()}>Logout</Button>;
+      return (
+        <React.Fragment>
+          <Button onClick={handleMobileMenuClose}>
+            <Link to="/orders" className={classes.links}>
+              Orders
+            </Link>
+          </Button>
+          <Button onClick={() => props.logout()}>Logout</Button>
+        </React.Fragment>
+      );
     } else {
       return (
         <React.Fragment>
@@ -197,9 +205,18 @@ const Navbar = (props) => {
         </Button>
       </MenuItem>
       {props.current.isAuthenticated ? (
-        <MenuItem>
-          <Button onClick={() => props.logout()}>Logout</Button>
-        </MenuItem>
+        <div>
+          <MenuItem>
+            <Button onClick={handleMobileMenuClose}>
+              <Link to="/orders" className={classes.links}>
+                Orders
+              </Link>
+            </Button>
+          </MenuItem>
+          <MenuItem>
+            <Button onClick={() => props.logout()}>Logout</Button>
+          </MenuItem>
+        </div>
       ) : (
         <div>
           <MenuItem>

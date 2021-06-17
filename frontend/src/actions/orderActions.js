@@ -4,21 +4,25 @@ export const GET_ORDERS = "GET_ORDERS";
 export const CHECKOUT = "CHECKOUT";
 export const ORDER_ERRORS = "ORDER_ERRORS";
 
-export const receiveOrders = (orders) => {
-  GET_ORDERS, orders;
-};
+export const receiveOrders = (orders) => ({
+  type: GET_ORDERS,
+  orders,
+});
 
-export const chargeOrder = (order) => {
-  CHECKOUT, order;
-};
+export const checkout = (order) => ({
+  type: CHECKOUT,
+  order,
+});
 
-export const receiveErrors = (errors) => {
-  ORDER_ERRORS, errors;
-};
+export const receiveErrors = (errors) => ({
+  type: ORDER_ERRORS,
+  errors,
+});
 
-export const getOrders = (id) => (dispatch) => {
+export const getOrders = (userId) => (dispatch) => {
+  console.log(userId);
   axios
-    .get(`/api/order/${id}`)
+    .get(`/api/orders/${userId}`)
     .then((res) => {
       console.log(res);
       dispatch(receiveOrders(res.data));
@@ -29,15 +33,12 @@ export const getOrders = (id) => (dispatch) => {
     });
 };
 
-export const checkout = (id, source) => (dispatch) => {
+export const chargeOrder = (id, source) => (dispatch) => {
   axios
-    .post(`/api/order/${id}`, { source })
+    .post(`/api/orders/${id}`, { source })
     .then((res) => {
       console.log(res);
-      dispatch(chargeOrder(res.data));
+      dispatch(checkout(res.data));
     })
-    .catch((err) => {
-      console.log(err);
-      dispatch(receiveErrors(err));
-    });
+    .catch((err) => dispatch(receiveErrors(err.response.data)));
 };

@@ -8,6 +8,7 @@ const initialState = {
 const orderReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_ORDERS:
+      console.log(action.orders);
       return {
         ...state,
         orders: action.orders,
@@ -16,7 +17,7 @@ const orderReducer = (state = initialState, action) => {
       console.log(action.order);
       return {
         ...state,
-        orders: action.order,
+        orders: [action.order, ...state.orders],
       };
     default:
       return state;

@@ -15,7 +15,6 @@ const initialState = {
 const cartReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_CART:
-      console.log({ ...state, cart: action.cart });
       return {
         ...state,
         cart: action.cart,

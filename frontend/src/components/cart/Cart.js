@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCart, deleteFromCart } from "../../actions/cartActions";
-import { checkout } from "../../actions/orderActions";
+import { chargeOrder } from "../../actions/orderActions";
 import Checkout from "./ Checkout";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import {
@@ -52,8 +52,6 @@ const Cart = (props) => {
   const current = useSelector((state) => state.session);
   const userId = current.user.id;
   const classes = useStyles();
-  console.log(cart.loading);
-  console.log(load, cart, current);
 
   useEffect(() => {
     if (current.isAuthenticated && !cart.loading && !load) {
@@ -159,9 +157,9 @@ const Cart = (props) => {
                         parseFloat(cart.cart.bill.toFixed(2)) +
                         parseFloat((cart.cart.bill * tax).toFixed(2))
                       }
-                      checkout={props.checkout}
+                      checkout={chargeOrder}
                     />
-                    <Button onClick={handleCheckout}>Checkout</Button>
+                    {/* <Button onClick={handleCheckout}>Checkout</Button> */}
                   </TableCell>
                 </TableRow>
               </TableBody>
