@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCart, deleteFromCart } from "../../actions/cartActions";
+import Checkout from "./ Checkout";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import {
   Table,

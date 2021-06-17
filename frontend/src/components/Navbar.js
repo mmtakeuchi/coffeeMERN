@@ -4,15 +4,17 @@ import { Link, useHistory } from "react-router-dom";
 import { logout } from "../actions/sessionActions";
 import { getCart } from "../actions/cartActions";
 import { fade, makeStyles } from "@material-ui/core/styles";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Button from "@material-ui/core/Button";
-import IconButton from "@material-ui/core/IconButton";
-import Typography from "@material-ui/core/Typography";
-import InputBase from "@material-ui/core/InputBase";
-import Badge from "@material-ui/core/Badge";
-import MenuItem from "@material-ui/core/MenuItem";
-import Menu from "@material-ui/core/Menu";
+import {
+  AppBar,
+  Toolbar,
+  Button,
+  IconButton,
+  Typography,
+  InputBase,
+  Badge,
+  MenuItem,
+  Menu,
+} from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
 import LocalCafeTwoToneIcon from "@material-ui/icons/LocalCafeTwoTone";
@@ -262,10 +264,6 @@ const Navbar = (props) => {
               aria-controls={menuId}
               aria-haspopup="true"
               onClick={goToCart}
-              // onClick={
-              //   props.current.isAuthenticated ? goToCart : handleProfileMenuOpen
-              // }
-              // color="inherit"
             >
               <Badge badgeContent={cartProducts()} color="primary">
                 <ShoppingCartOutlinedIcon />
@@ -279,7 +277,6 @@ const Navbar = (props) => {
               aria-controls={menuId}
               aria-haspopup="true"
               onClick={() => history.push(`/cart`)}
-              // color="inherit"
             >
               <Badge badgeContent={cartProducts()} color="primary">
                 <ShoppingCartOutlinedIcon />
