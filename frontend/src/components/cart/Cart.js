@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCart, deleteFromCart } from "../../actions/cartActions";
+import { checkout } from "../../actions/orderActions";
 import Checkout from "./ Checkout";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import {
@@ -152,6 +153,14 @@ const Cart = (props) => {
                   <TableCell rowSpan={1} />
                   <TableCell rowSpan={1} />
                   <TableCell align="right">
+                    <Checkout
+                      user={userId}
+                      amount={
+                        parseFloat(cart.cart.bill.toFixed(2)) +
+                        parseFloat((cart.cart.bill * tax).toFixed(2))
+                      }
+                      checkout={props.checkout}
+                    />
                     <Button onClick={handleCheckout}>Checkout</Button>
                   </TableCell>
                 </TableRow>
