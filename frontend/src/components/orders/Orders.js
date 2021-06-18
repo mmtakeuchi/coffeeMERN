@@ -16,7 +16,7 @@ const Orders = (props) => {
     <div>
       {current.isAuthenticated ? (
         <React.Fragment>
-          {orders.orders === [] ? null : (
+          {orders.orders !== [] ? null : (
             <div color="info" className="text-center">
               You have no orders!
             </div>
@@ -30,8 +30,8 @@ const Orders = (props) => {
 
       {current.isAuthenticated && orders.orders.length ? (
         <div>
-          {orders.orders.map((products) => (
-            <div>{products.title}</div>
+          {orders.orders.map((order) => (
+            <div>{order.totalPrice}</div>
           ))}
         </div>
       ) : null}

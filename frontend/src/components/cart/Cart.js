@@ -48,6 +48,10 @@ const useStyles = makeStyles((theme) => ({
   row: {
     borderBottom: "1px solid black",
   },
+  picture: {
+    height: "90px",
+    width: "80px",
+  },
 }));
 
 const Cart = (props) => {
@@ -93,8 +97,10 @@ const Cart = (props) => {
             <Table className={classes.table} aria-label="customized table">
               <TableHead>
                 <TableRow>
-                  <StyledTableCell>Name</StyledTableCell>
-                  <StyledTableCell align="right">Quantity</StyledTableCell>
+                  <StyledTableCell colSpan={2} align="right">
+                    Name
+                  </StyledTableCell>
+                  <StyledTableCell align="center">Quantity</StyledTableCell>
                   <StyledTableCell align="right">Amount</StyledTableCell>
                   <StyledTableCell align="right">Remove</StyledTableCell>
                 </TableRow>
@@ -102,7 +108,14 @@ const Cart = (props) => {
               <TableBody>
                 {cart.cart.products.map((product, i) => (
                   <StyledTableRow key={i}>
-                    <StyledTableCell component="th" scope="row">
+                    <StyledTableCell>
+                      <img
+                        src={product.image}
+                        alt={`${product.title} image`}
+                        className={classes.picture}
+                      />
+                    </StyledTableCell>
+                    <StyledTableCell component="th" scope="row" align="center">
                       {product.title}
                     </StyledTableCell>
                     <StyledTableCell align="right">
@@ -130,37 +143,20 @@ const Cart = (props) => {
 
                 <StyledTableRow>
                   <StyledTableCell rowSpan={1} />
-                  <StyledTableCell colSpan={2}>Subtotal</StyledTableCell>
+                  <StyledTableCell colSpan={3} align="center">
+                    Total
+                  </StyledTableCell>
                   <StyledTableCell align="right">
                     ${parseFloat(cart.cart.bill.toFixed(2))}
                   </StyledTableCell>
                 </StyledTableRow>
                 <StyledTableRow>
-                  <StyledTableCell colSpan={1} />
-                  <StyledTableCell>Tax</StyledTableCell>
-                  <StyledTableCell align="right">{tax * 100}%</StyledTableCell>
-                  <StyledTableCell align="right">
-                    ${parseFloat((cart.cart.bill * tax).toFixed(2))}
-                  </StyledTableCell>
-                </StyledTableRow>
-                <StyledTableRow>
                   <StyledTableCell rowSpan={1} />
-                  <StyledTableCell colSpan={2}>Total</StyledTableCell>
-                  <StyledTableCell align="right">
-                    $
-                    {parseFloat(cart.cart.bill.toFixed(2)) +
-                      parseFloat((cart.cart.bill * tax).toFixed(2))}
-                  </StyledTableCell>
-                </StyledTableRow>
-                <StyledTableRow>
                   <StyledTableCell colSpan={3} className={classes.row} />
                   <StyledTableCell align="right" className={classes.row}>
                     <Checkout
                       user={userId}
-                      amount={
-                        parseFloat(cart.cart.bill.toFixed(2)) +
-                        parseFloat((cart.cart.bill * tax).toFixed(2))
-                      }
+                      amount={parseFloat(cart.cart.bill.toFixed(2))}
                       checkout={props.chargeOrder}
                     />
                   </StyledTableCell>
