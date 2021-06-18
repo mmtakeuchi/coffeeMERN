@@ -29,6 +29,7 @@ module.exports.addCartItem = async (req, res) => {
     }
     const price = item.price;
     const title = item.title;
+    const image = item.image;
 
     if (cart) {
       // if cart exists for the user
@@ -49,6 +50,7 @@ module.exports.addCartItem = async (req, res) => {
           title,
           quantity: parseInt(count),
           price,
+          image,
         });
       }
       cart.bill += parseInt(count) * price;
@@ -60,7 +62,13 @@ module.exports.addCartItem = async (req, res) => {
       const newCart = await Cart.create({
         user: userId,
         products: [
-          { product: productId, title, quantity: parseInt(count), price },
+          {
+            product: productId,
+            title,
+            quantity: parseInt(count),
+            price,
+            image,
+          },
         ],
         bill: parseFloat((parseInt(count) * price).toFixed(2)),
       });

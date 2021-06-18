@@ -19,6 +19,11 @@ const orderReducer = (state = initialState, action) => {
         ...state,
         orders: [action.order, ...state.orders],
       };
+    case ORDER_ERRORS:
+      return {
+        ...state,
+        errors: action.errors,
+      };
     default:
       return state;
   }

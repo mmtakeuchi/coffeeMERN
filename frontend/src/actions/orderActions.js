@@ -20,7 +20,6 @@ export const receiveErrors = (errors) => ({
 });
 
 export const getOrders = (userId) => (dispatch) => {
-  console.log(userId);
   axios
     .get(`/api/orders/${userId}`)
     .then((res) => {
@@ -34,6 +33,7 @@ export const getOrders = (userId) => (dispatch) => {
 };
 
 export const chargeOrder = (id, source) => (dispatch) => {
+  console.log(id, source);
   axios
     .post(`/api/orders/${id}`, { source })
     .then((res) => {

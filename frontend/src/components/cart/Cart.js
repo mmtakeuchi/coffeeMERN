@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 import { getCart, deleteFromCart } from "../../actions/cartActions";
 import { chargeOrder } from "../../actions/orderActions";
-import Checkout from "./ Checkout";
+import Checkout from "./Checkout";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import {
   Table,
@@ -22,6 +22,7 @@ const StyledTableCell = withStyles((theme) => ({
   },
   body: {
     fontSize: 14,
+    borderBottom: "1px solid black",
   },
 }))(TableCell);
 
@@ -40,11 +41,17 @@ const useStyles = makeStyles((theme) => ({
     // alignItems: "center",
   },
   table: {
+    border: "1px solid black",
+    // background: "white",
     minWidth: 300,
+  },
+  row: {
+    borderBottom: "1px solid black",
   },
 }));
 
 const Cart = (props) => {
+  console.log(props);
   const [load, setLoad] = useState(false);
   const tax = 0.05;
   const dispatch = useDispatch();
@@ -52,12 +59,13 @@ const Cart = (props) => {
   const current = useSelector((state) => state.session);
   const userId = current.user.id;
   const classes = useStyles();
+  console.log(cart);
 
   useEffect(() => {
     if (current.isAuthenticated && !cart.loading && !load) {
       getCartItems();
     }
-  }, [cart, load]);
+  }, []);
 
   const getCartItems = async () => {
     await dispatch(getCart(userId));
@@ -67,10 +75,6 @@ const Cart = (props) => {
   const handleDelete = (userId, product) => {
     console.log("DELETE");
     dispatch(deleteFromCart(userId, product));
-  };
-
-  const handleCheckout = () => {
-    console.log("checkout");
   };
 
   return (
@@ -85,7 +89,7 @@ const Cart = (props) => {
 
       {current.isAuthenticated && cart.cart ? (
         <div>
-          <TableContainer component={Paper}>
+          <TableContainer>
             <Table className={classes.table} aria-label="customized table">
               <TableHead>
                 <TableRow>
@@ -124,44 +128,43 @@ const Cart = (props) => {
                   </StyledTableRow>
                 ))}
 
-                <TableRow>
-                  <TableCell rowSpan={3} />
-                  <TableCell colSpan={2}>Subtotal</TableCell>
-                  <TableCell align="right">
+                <StyledTableRow>
+                  <StyledTableCell rowSpan={1} />
+                  <StyledTableCell colSpan={2}>Subtotal</StyledTableCell>
+                  <StyledTableCell align="right">
                     ${parseFloat(cart.cart.bill.toFixed(2))}
-                  </TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>Tax</TableCell>
-                  <TableCell align="right">{tax * 100}%</TableCell>
-                  <TableCell align="right">
+                  </StyledTableCell>
+                </StyledTableRow>
+                <StyledTableRow>
+                  <StyledTableCell colSpan={1} />
+                  <StyledTableCell>Tax</StyledTableCell>
+                  <StyledTableCell align="right">{tax * 100}%</StyledTableCell>
+                  <StyledTableCell align="right">
                     ${parseFloat((cart.cart.bill * tax).toFixed(2))}
-                  </TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell colSpan={2}>Total</TableCell>
-                  <TableCell align="right">
+                  </StyledTableCell>
+                </StyledTableRow>
+                <StyledTableRow>
+                  <StyledTableCell rowSpan={1} />
+                  <StyledTableCell colSpan={2}>Total</StyledTableCell>
+                  <StyledTableCell align="right">
                     $
                     {parseFloat(cart.cart.bill.toFixed(2)) +
                       parseFloat((cart.cart.bill * tax).toFixed(2))}
-                  </TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell rowSpan={1} />
-                  <TableCell rowSpan={1} />
-                  <TableCell rowSpan={1} />
-                  <TableCell align="right">
+                  </StyledTableCell>
+                </StyledTableRow>
+                <StyledTableRow>
+                  <StyledTableCell colSpan={3} className={classes.row} />
+                  <StyledTableCell align="right" className={classes.row}>
                     <Checkout
                       user={userId}
                       amount={
                         parseFloat(cart.cart.bill.toFixed(2)) +
                         parseFloat((cart.cart.bill * tax).toFixed(2))
                       }
-                      checkout={chargeOrder}
+                      checkout={props.chargeOrder}
                     />
-                    {/* <Button onClick={handleCheckout}>Checkout</Button> */}
-                  </TableCell>
-                </TableRow>
+                  </StyledTableCell>
+                </StyledTableRow>
               </TableBody>
             </Table>
           </TableContainer>
@@ -171,4 +174,4 @@ const Cart = (props) => {
   );
 };
 
-export default Cart;
+export default connect(null, { chargeOrder })(Cart);
