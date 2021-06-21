@@ -45,8 +45,8 @@ const useStyles = makeStyles({
     flex: "50%",
   },
   image: {
-    height: "80px",
-    width: "70px",
+    height: "90px",
+    width: "80px",
     flex: "10%",
     margin: "5px 15px 5px 5px",
   },

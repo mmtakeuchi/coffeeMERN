@@ -41,6 +41,12 @@ const useStyles = makeStyles((theme) => ({
     color: "red",
     marginBottom: "1em",
   },
+  update: {
+    color: "blue",
+  },
+  delete: {
+    color: "red",
+  },
 }));
 
 const ProductDetail = (props) => {
@@ -117,10 +123,13 @@ const ProductDetail = (props) => {
                   onClick={() =>
                     history.push(`/products/${product._id}/update`)
                   }
+                  className={classes.update}
                 >
                   Update
                 </Button>
-                <Button onClick={handleDelete}>Delete</Button>
+                <Button onClick={handleDelete} className={classes.delete}>
+                  Delete
+                </Button>
                 <h1 className={classes.title}>{product.title}</h1>
                 <h3>
                   {product.category

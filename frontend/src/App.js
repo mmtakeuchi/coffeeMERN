@@ -9,6 +9,7 @@ import NewProduct from "./components/products/NewProduct";
 import UpdateProduct from "./components/products/UpdateProduct";
 import Cart from "./components/cart/Cart";
 import Orders from "./components/orders/Orders";
+import Footer from "./components/Footer";
 import { CssBaseline, Container } from "@material-ui/core";
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
           <Route path="/orders" component={Orders} />
         </Switch>
       </Container>
+      <Footer />
     </div>
   );
 }

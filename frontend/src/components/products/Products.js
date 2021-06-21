@@ -2,7 +2,6 @@ import React from "react";
 import { connect } from "react-redux";
 import { getProducts } from "../../actions/productActions";
 import Product from "./Product";
-import { makeStyles } from "@material-ui/core/styles";
 import { Grid, Button } from "@material-ui/core";
 
 class Products extends React.Component {
@@ -35,9 +34,11 @@ class Products extends React.Component {
           variant="outlined"
           color="secondary"
           onClick={() => this.props.history.push("/products/new")}
+          style={{ margin: "10px" }}
         >
           ADD NEW PRODUCT
         </Button>
+
         <Grid container spacing={4}>
           {this.renderProducts()}
         </Grid>
