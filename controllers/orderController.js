@@ -26,7 +26,7 @@ module.exports.checkout = async (req, res) => {
     let user = await User.findOne({ _id: userId });
     let cart = await Cart.findOne({ user: userId });
 
-    console.log(user, cart);
+    console.log(cart);
 
     if (cart) {
       const charge = await stripe.charges.create({
@@ -41,7 +41,7 @@ module.exports.checkout = async (req, res) => {
           user: userId,
           cart: cart._id,
           products: cart.products.map((product) => ({
-            product: product._id,
+            product: product.product,
             title: product.title,
             quantity: product.quantity,
             price: product.price,

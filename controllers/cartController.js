@@ -23,6 +23,7 @@ module.exports.addCartItem = async (req, res) => {
   try {
     let cart = await Cart.findOne({ user: userId });
     let item = await Product.findOne({ _id: productId });
+    console.log(item);
 
     if (!item) {
       res.status(404).send("Item not found!");
@@ -46,7 +47,7 @@ module.exports.addCartItem = async (req, res) => {
         cart.products[itemIndex] = productItem;
       } else {
         cart.products.push({
-          product: productId,
+          product: item._id,
           title,
           quantity: parseInt(count),
           price,
