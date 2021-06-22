@@ -15,6 +15,7 @@ const useStyles = makeStyles({
     justifyContent: "center",
   },
   order: {
+    width: "80%",
     border: "0.5px solid gray",
     margin: "10px",
   },
@@ -34,7 +35,7 @@ const useStyles = makeStyles({
   top: {
     display: "flex",
     flexDirection: "row",
-    fontSize: "1em",
+    fontSize: "1.15em",
     borderBottom: "0.5px solid gray",
     margin: "5px",
   },
@@ -52,12 +53,13 @@ const useStyles = makeStyles({
   },
   title: {
     flex: "80%",
+    fontSize: "1.5em",
   },
   link: {
     textDecoration: "none",
   },
   quantity: {
-    fontSize: "1em",
+    fontSize: "1.1em",
     flex: "10%",
     marginRight: "10px",
   },
@@ -107,7 +109,7 @@ const Orders = (props) => {
             <div className={classes.order}>
               <div className={classes.top}>
                 <div className={classes.orderDate}>
-                  <strong>Ordered: </strong>
+                  <strong>Order Date: </strong>
                   {renderDate(order.date_added)}
                 </div>
                 <div className={classes.price}>
