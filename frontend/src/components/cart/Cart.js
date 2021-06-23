@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { connect, useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { getCart, deleteFromCart } from "../../actions/cartActions";
 import { chargeOrder } from "../../actions/orderActions";
 import Checkout from "./Checkout";
@@ -59,6 +60,7 @@ const Cart = (props) => {
   const [load, setLoad] = useState(false);
   const tax = 0.05;
   const dispatch = useDispatch();
+  const history = useHistory();
   const cart = useSelector((state) => state.cart);
   const current = useSelector((state) => state.session);
   const userId = current.user.id;
@@ -79,6 +81,10 @@ const Cart = (props) => {
   const handleDelete = (userId, product) => {
     console.log("DELETE");
     dispatch(deleteFromCart(userId, product));
+  };
+
+  const handleCheckout = () => {
+    history.push("/orders");
   };
 
   return (
@@ -158,6 +164,7 @@ const Cart = (props) => {
                       user={userId}
                       amount={parseFloat(cart.cart.bill.toFixed(2))}
                       checkout={props.chargeOrder}
+                      onClick={handleCheckout}
                     />
                   </StyledTableCell>
                 </StyledTableRow>
