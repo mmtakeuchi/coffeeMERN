@@ -44,17 +44,14 @@ export const getProducts = () => (dispatch) => {
       dispatch(getItems(res.data));
     })
     .catch((err) => {
-      console.log(err.response);
       dispatch(receiveErrors(err.response.data));
     });
 };
 
 export const addProduct = (newProduct) => (dispatch) => {
-  console.log(newProduct);
   axios
     .post("/api/products", newProduct)
     .then((res) => {
-      console.log(res);
       dispatch(createProduct(res.data));
     })
     .catch((err) => dispatch(receiveErrors(err.response.data)));
@@ -64,7 +61,6 @@ export const getProduct = (productId) => (dispatch) => {
   axios
     .get(`/api/products/${productId}`)
     .then((res) => {
-      console.log(res);
       dispatch(getItem(res.data));
     })
     .catch((err) => dispatch(receiveErrors(err.response.data)));
@@ -74,18 +70,15 @@ export const deleteProduct = (productId) => (dispatch) => {
   axios
     .delete(`/api/products/${productId}`)
     .then((res) => {
-      console.log(res);
       dispatch(deleteItem(productId));
     })
     .catch((err) => dispatch(receiveErrors(err)));
 };
 
 export const updateProduct = (productId, updatedProduct) => (dispatch) => {
-  console.log(productId, updatedProduct);
   axios
     .put(`/api/products/${productId}`, updatedProduct)
     .then((res) => {
-      console.log(res.data);
       dispatch(updateItem(res.data));
     })
     .catch((err) => dispatch(receiveErrors(err)));

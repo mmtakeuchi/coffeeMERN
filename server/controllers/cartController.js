@@ -11,7 +11,6 @@ module.exports.getCartItems = async (req, res) => {
       res.send(null);
     }
   } catch (err) {
-    console.log(err);
     res.status(500).send("Something went wrong");
   }
 };
@@ -23,7 +22,6 @@ module.exports.addCartItem = async (req, res) => {
   try {
     let cart = await Cart.findOne({ user: userId });
     let item = await Product.findOne({ _id: productId });
-    console.log(item);
 
     if (!item) {
       res.status(404).send("Item not found!");
@@ -42,7 +40,7 @@ module.exports.addCartItem = async (req, res) => {
       // Check if product exists or not
       if (itemIndex > -1) {
         let productItem = cart.products[itemIndex];
-        console.log(productItem);
+
         productItem.quantity += parseInt(count);
         cart.products[itemIndex] = productItem;
       } else {
@@ -76,7 +74,6 @@ module.exports.addCartItem = async (req, res) => {
       return res.status(201).send(newCart);
     }
   } catch (err) {
-    console.log(err);
     res.status(500).send("Something went wrong");
   }
 };
@@ -97,10 +94,9 @@ module.exports.deleteItem = async (req, res) => {
       cart.products.splice(itemIndex, 1);
     }
     cart = await cart.save();
-    console.log(cart);
+
     return res.status(201).send(cart);
   } catch (err) {
-    console.log(err);
     res.status(500).send("Something went wrong");
   }
 };

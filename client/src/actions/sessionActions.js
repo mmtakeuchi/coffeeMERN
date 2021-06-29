@@ -30,7 +30,6 @@ export const signup = (userData) => (dispatch) =>
   axios
     .post("/api/users/register", userData)
     .then((res) => {
-      console.log(res.data);
       const { token } = res.data;
       localStorage.setItem("jwtToken", token);
       sessionApi.setAuthToken(token);
@@ -38,7 +37,6 @@ export const signup = (userData) => (dispatch) =>
       dispatch(getSigninUser(decoded));
     })
     .catch((err) => {
-      console.log(err.response);
       dispatch(getErrors(err.response.data));
     });
 
@@ -46,7 +44,6 @@ export const login = (userData) => (dispatch) =>
   axios
     .post("/api/users/login", userData)
     .then((res) => {
-      console.log(res.data);
       const { token } = res.data;
       localStorage.setItem("jwtToken", token);
       sessionApi.setAuthToken(token);
@@ -54,7 +51,6 @@ export const login = (userData) => (dispatch) =>
       dispatch(getCurrentuser(decoded));
     })
     .catch((err) => {
-      console.log(err.response);
       dispatch(getErrors(err.response.data));
     });
 

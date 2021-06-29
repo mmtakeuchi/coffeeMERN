@@ -75,8 +75,6 @@ const Orders = (props) => {
     dispatch(getOrders(current.user.id));
   }, [current.user.id]);
 
-  console.log(orders);
-
   const renderDate = (date) => {
     if (orders) {
       let day = date.split("T")[0];

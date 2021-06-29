@@ -22,13 +22,11 @@ const cartReducer = (state = initialState, action) => {
       };
 
     case ADD_TO_CART:
-      console.log(action.cart);
       return {
         ...state,
         cart: action.cart,
       };
     case DELETE_FROM_CART:
-      console.log(action.cart);
       return {
         ...state,
         cart: action.cart,

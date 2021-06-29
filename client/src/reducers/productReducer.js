@@ -25,15 +25,11 @@ const productReducer = (state = initialState, action) => {
         products: action.product,
       };
     case ADD_PRODUCT:
-      console.log(state);
-      console.log(action.newProduct);
       return {
         ...state,
         products: [...state.products, action.newProduct],
       };
     case UPDATE_PRODUCT:
-      console.log(action.updatedProduct);
-      console.log(state);
       let items = [...state.products].filter(
         (product) => product._id !== action.updatedProduct._id
       );
@@ -45,7 +41,7 @@ const productReducer = (state = initialState, action) => {
       let savedProducts = state.products.filter(
         (product) => product._id !== action.productId
       );
-      console.log(savedProducts);
+
       return {
         ...state,
         products: [...savedProducts],

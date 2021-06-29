@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import { getProduct, deleteProduct } from "../../actions/productActions";
 import { addToCart } from "../../actions/cartActions";
 import { makeStyles } from "@material-ui/core/styles";
-import { Paper, Button, TextField, Grid } from "@material-ui/core/";
+import { Paper, Button, TextField, Grid } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -58,10 +58,8 @@ const ProductDetail = (props) => {
   const [error, setError] = useState("");
   const product = useSelector((state) => state.products.products);
   const current = useSelector((state) => state.session);
-  console.log(product, current);
 
   useEffect(() => dispatch(getProduct(productId)), [dispatch, productId]);
-  console.log(props);
 
   const handleChange = (event) => {
     setQuantity(event.target.value);
@@ -69,7 +67,6 @@ const ProductDetail = (props) => {
 
   const validateQuantity = () => {
     let valid = true;
-    console.log(quantity);
 
     if (quantity === "" || quantity <= 0) {
       setError("Please enter a valid amount.");
@@ -85,10 +82,8 @@ const ProductDetail = (props) => {
   };
 
   const handleAddClick = () => {
-    console.log(validateQuantity(quantity));
     if (validateQuantity(quantity)) {
       if (!current.isAuthenticated) {
-        console.log("Sign In to Add Item to Cart.");
       } else {
         dispatch(addToCart(current.user.id, product._id, quantity));
         history.push(`/cart`);
@@ -119,21 +114,22 @@ const ProductDetail = (props) => {
             </Grid>
             <Grid item xs={12} sm={6}>
               <Paper className={classes.paper}>
-                {current.user.isAdmin ? 
-                <React.Fragment>
-                  <Button
-                  onClick={() =>
-                    history.push(`/products/${product._id}/update`)
-                  }
-                  className={classes.update}
-                >
-                  Update
-                </Button>
-                <Button onClick={handleDelete} className={classes.delete}>
-                  Delete
-                </Button>
-                </React.Fragment> : null}
-                
+                {current.user.isAdmin ? (
+                  <React.Fragment>
+                    <Button
+                      onClick={() =>
+                        history.push(`/products/${product._id}/update`)
+                      }
+                      className={classes.update}
+                    >
+                      Update
+                    </Button>
+                    <Button onClick={handleDelete} className={classes.delete}>
+                      Delete
+                    </Button>
+                  </React.Fragment>
+                ) : null}
+
                 <h1 className={classes.title}>{product.title}</h1>
                 <h3>
                   {product.category

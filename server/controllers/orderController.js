@@ -8,7 +8,6 @@ module.exports.getOrders = async (req, res) => {
   const userId = req.params.id;
   const orders = await Order.find({ user: userId });
 
-  console.log(orders);
   if (orders) {
     res.send(orders);
   } else {
@@ -18,15 +17,10 @@ module.exports.getOrders = async (req, res) => {
 
 module.exports.checkout = async (req, res) => {
   try {
-    console.log(req.user);
-    console.log(req.body);
-    console.log(req.params.id);
     const { source } = req.body;
     const userId = req.params.id;
     let user = await User.findOne({ _id: userId });
     let cart = await Cart.findOne({ user: userId });
-
-    console.log(cart);
 
     if (cart) {
       const charge = await stripe.charges.create({
@@ -49,7 +43,7 @@ module.exports.checkout = async (req, res) => {
           })),
           totalPrice: cart.bill,
         });
-        console.log(order);
+
         const data = await Cart.findByIdAndDelete({ _id: cart.id });
         return res.status(201).send(order);
       }
@@ -57,7 +51,6 @@ module.exports.checkout = async (req, res) => {
       res.status(500).send({ message: "Could not retrieve cart." });
     }
   } catch (err) {
-    console.log(err);
     res.status(500).send("Something went wrong with checking out.");
   }
 };

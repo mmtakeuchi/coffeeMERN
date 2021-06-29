@@ -26,19 +26,19 @@ class Products extends React.Component {
   };
 
   render() {
-    console.log(this.props);
     return (
-      <div style={{marginBottom: '2.5em'}}>
+      <div style={{ marginBottom: "2.5em" }}>
         <h1>Products</h1>
-        {this.props.current.user.isAdmin ? <Button
-          variant="outlined"
-          color="primary"
-          onClick={() => this.props.history.push("/products/new")}
-          style={{ margin: "10px" }}
-        >
-          ADD NEW PRODUCT
-        </Button> : null}
-        
+        {this.props.current.user.isAdmin ? (
+          <Button
+            variant="outlined"
+            color="primary"
+            onClick={() => this.props.history.push("/products/new")}
+            style={{ margin: "10px" }}
+          >
+            ADD NEW PRODUCT
+          </Button>
+        ) : null}
 
         <Grid container spacing={4}>
           {this.renderProducts()}
@@ -50,7 +50,7 @@ class Products extends React.Component {
 
 const mapStateToProps = (state) => ({
   products: state.products.products,
-  current: state.session
+  current: state.session,
 });
 
 const mapDispatchToProps = (dispatch) => ({

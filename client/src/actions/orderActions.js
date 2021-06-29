@@ -23,21 +23,17 @@ export const getOrders = (userId) => (dispatch) => {
   axios
     .get(`/api/orders/${userId}`)
     .then((res) => {
-      console.log(res);
       dispatch(receiveOrders(res.data));
     })
     .catch((err) => {
-      console.log(err);
       dispatch(receiveErrors(err));
     });
 };
 
 export const chargeOrder = (id, source) => (dispatch) => {
-  console.log(id, source);
   axios
     .post(`/api/orders/${id}`, { source })
     .then((res) => {
-      console.log(res);
       dispatch(checkout(res.data));
     })
     .catch((err) => dispatch(receiveErrors(err.response.data)));

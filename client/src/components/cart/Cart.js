@@ -56,7 +56,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Cart = (props) => {
-  console.log(props);
   const [load, setLoad] = useState(false);
   const tax = 0.05;
   const dispatch = useDispatch();
@@ -65,7 +64,6 @@ const Cart = (props) => {
   const current = useSelector((state) => state.session);
   const userId = current.user.id;
   const classes = useStyles();
-  console.log(cart);
 
   useEffect(() => {
     if (current.isAuthenticated && !cart.loading && !load) {

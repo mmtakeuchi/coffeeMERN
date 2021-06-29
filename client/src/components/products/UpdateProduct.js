@@ -51,7 +51,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const UpdateProduct = (props) => {
-  console.log(props);
   const classes = useStyles();
   const history = useHistory();
   const dispatch = useDispatch();
@@ -74,8 +73,6 @@ const UpdateProduct = (props) => {
 
   const { user } = useSelector((state) => state.session);
   const { products, errors } = useSelector((state) => state.products);
-  console.log(Object.keys(products).length === 0, products);
-  console.log(values);
 
   useEffect(() => {
     if (user && !user.isAdmin) {
