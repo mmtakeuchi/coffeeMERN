@@ -25,7 +25,6 @@ const useStyles = makeStyles({
 const Product = ({ product }) => {
   const classes = useStyles();
 
-  console.log(product);
   return (
     <div>
       <Card className={classes.root}>
@@ -47,7 +46,7 @@ const Product = ({ product }) => {
                 {product.title}
               </Typography>
               <Typography variant="body1" component="p">
-                Roast: {product.category.toUpperCase()}
+                Type: {product.category.toUpperCase()}
               </Typography>
             </CardContent>
           </Link>

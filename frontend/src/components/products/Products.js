@@ -29,15 +29,16 @@ class Products extends React.Component {
     console.log(this.props);
     return (
       <div>
-        <div>Products</div>
-        <Button
+        <h1>Products</h1>
+        {this.props.current.user.isAdmin ? <Button
           variant="outlined"
-          color="secondary"
+          color="primary"
           onClick={() => this.props.history.push("/products/new")}
           style={{ margin: "10px" }}
         >
           ADD NEW PRODUCT
-        </Button>
+        </Button> : null}
+        
 
         <Grid container spacing={4}>
           {this.renderProducts()}
@@ -47,8 +48,9 @@ class Products extends React.Component {
   }
 }
 
-const mapStateToProps = ({ products }) => ({
-  products: products.products,
+const mapStateToProps = (state) => ({
+  products: state.products.products,
+  current: state.session
 });
 
 const mapDispatchToProps = (dispatch) => ({

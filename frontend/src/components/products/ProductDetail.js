@@ -119,7 +119,9 @@ const ProductDetail = (props) => {
             </Grid>
             <Grid item xs={12} sm={6}>
               <Paper className={classes.paper}>
-                <Button
+                {current.user.isAdmin ? 
+                <React.Fragment>
+                  <Button
                   onClick={() =>
                     history.push(`/products/${product._id}/update`)
                   }
@@ -130,6 +132,8 @@ const ProductDetail = (props) => {
                 <Button onClick={handleDelete} className={classes.delete}>
                   Delete
                 </Button>
+                </React.Fragment> : null}
+                
                 <h1 className={classes.title}>{product.title}</h1>
                 <h3>
                   {product.category
