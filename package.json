@@ -12,8 +12,9 @@
     "start": "node app.js",
     "server:debug": "nodemon --inspect app.js",
     "server": "nodemon app.js",
-    "frontend": "npm start --prefix frontend",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "author": "Michael Takeuchi",
   "license": "ISC",
@@ -28,6 +29,7 @@
     "multer": "^1.4.2",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
+    "path": "^0.12.7",
     "stripe": "^8.154.0",
     "validator": "^13.6.0"
   },
