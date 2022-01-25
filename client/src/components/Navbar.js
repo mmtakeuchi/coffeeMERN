@@ -83,7 +83,7 @@ const Navbar = (props) => {
     if (props.current.isAuthenticated) {
       dispatch(getCart(props.current.user.id));
     }
-  }, [props.current.user]);
+  }, [props.current.user, props.cart]);
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);

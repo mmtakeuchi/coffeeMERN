@@ -79,7 +79,6 @@ const Cart = (props) => {
   };
 
   const handleDelete = (userId, product) => {
-    console.log("DELETE");
     dispatch(deleteFromCart(userId, product));
   };
 
