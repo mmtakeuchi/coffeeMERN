@@ -29,7 +29,7 @@ class Products extends React.Component {
     return (
       <div style={{ marginBottom: "2.5em" }}>
         <h1>Products</h1>
-        {this.props.current.user.isAdmin ? (
+        {this.props.current?.user?.isAdmin ? (
           <Button
             variant="outlined"
             color="primary"

@@ -28,7 +28,7 @@ const sessionReducer = (state = initialState, action) => {
     case GET_USER_LOGOUT:
       return {
         isAuthenticated: false,
-        user: undefined,
+        user: {},
       };
     case GET_SESSION_ERRORS:
       return {

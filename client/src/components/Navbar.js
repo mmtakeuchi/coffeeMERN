@@ -110,7 +110,7 @@ const Navbar = (props) => {
 
   const handleLogout = () => {
     props.logout();
-    history.push("/products");
+    history.push("/");
   };
 
   const authenticatedLinks = () => {
@@ -122,7 +122,7 @@ const Navbar = (props) => {
               Orders
             </Link>
           </Button>
-          <Button onClick={() => props.logout()}>Logout</Button>
+          <Button onClick={handleLogout}>Logout</Button>
         </React.Fragment>
       );
     } else {
