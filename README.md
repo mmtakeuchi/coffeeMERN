@@ -4,7 +4,7 @@ Coffee e-commerce site that shows coffee products from various companies. Users 
 
 ## Demo
 
-<a href="https://radiant-plateau-95041.herokuapp.com/orders">Coffee Shop</a>
+<a href="https://radiant-plateau-95041.herokuapp.com">Coffee Shop</a>
 
 Home Page
 <img src="/assets/images/CoffeeMern-home.png">
