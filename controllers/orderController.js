@@ -19,15 +19,12 @@ module.exports.checkout = async (req, res) => {
   try {
     const { source } = req.body;
     const userId = req.params.id;
-    let user = await User.findOne({ _id: userId });
     let cart = await Cart.findOne({ user: userId });
-
     if (cart) {
       const charge = await stripe.charges.create({
         amount: cart.bill * 100,
         currency: "usd",
         source: source,
-        receipt_email: user.email,
       });
       if (!charge) throw Error("Payment failed.");
       if (charge) {
@@ -44,7 +41,7 @@ module.exports.checkout = async (req, res) => {
           totalPrice: cart.bill,
         });
 
-        const data = await Cart.findByIdAndDelete({ _id: cart.id });
+        const data = await Cart.findByIdAndDelete({ _id: cart._id });
         return res.status(201).send(order);
       }
     } else {

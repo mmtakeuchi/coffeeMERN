@@ -47,8 +47,9 @@ export const getCart = (userId) => (dispatch) => {
 
 export const addToCart = (userId, productId, count) => (dispatch) => {
   axios
-    .post(`api/cart/${userId}`, { productId, count })
+    .post(`/api/cart/${userId}`, { productId, count })
     .then((res) => {
+      console.log(res);
       dispatch(addCartItem(res.data));
     })
     .catch((err) => {
@@ -58,7 +59,7 @@ export const addToCart = (userId, productId, count) => (dispatch) => {
 
 export const deleteFromCart = (userId, product) => (dispatch) => {
   axios
-    .delete(`api/cart/${userId}/${product.product}`)
+    .delete(`/api/cart/${userId}/${product.product}`)
     .then((res) => {
       dispatch(deleteCartItem(res.data));
     })

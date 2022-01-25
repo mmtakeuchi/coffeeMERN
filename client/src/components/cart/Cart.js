@@ -3,6 +3,7 @@ import { connect, useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { getCart, deleteFromCart } from "../../actions/cartActions";
 import { chargeOrder } from "../../actions/orderActions";
+import { getOrders } from "../../actions/orderActions";
 import Checkout from "./Checkout";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import {
@@ -62,6 +63,7 @@ const Cart = (props) => {
   const history = useHistory();
   const cart = useSelector((state) => state.cart);
   const current = useSelector((state) => state.session);
+  const orders = useSelector((state) => state.orders);
   const userId = current.user.id;
   const classes = useStyles();
 
@@ -82,8 +84,12 @@ const Cart = (props) => {
   };
 
   const handleCheckout = () => {
-    history.push("/orders");
+    if (orders.status === "success") {
+      history.push("/orders");
+    }
   };
+
+  useEffect(() => handleCheckout(), [orders]);
 
   return (
     <div className={classes.root}>
@@ -115,7 +121,7 @@ const Cart = (props) => {
                     <StyledTableCell>
                       <img
                         src={product.image}
-                        alt={`${product.title} image`}
+                        alt={`${product.title}`}
                         className={classes.picture}
                       />
                     </StyledTableCell>
@@ -160,7 +166,7 @@ const Cart = (props) => {
                   <StyledTableCell align="right" className={classes.row}>
                     <Checkout
                       user={userId}
-                      amount={parseFloat(cart.cart.bill.toFixed(2))}
+                      amount={cart?.cart?.bill}
                       checkout={props.chargeOrder}
                       onClick={handleCheckout}
                     />

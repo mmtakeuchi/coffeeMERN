@@ -3,6 +3,7 @@ import { GET_ORDERS, CHECKOUT, ORDER_ERRORS } from "../actions/orderActions";
 const initialState = {
   orders: [],
   errors: [],
+  status: "pending",
 };
 
 const orderReducer = (state = initialState, action) => {
@@ -11,11 +12,13 @@ const orderReducer = (state = initialState, action) => {
       return {
         ...state,
         orders: action.orders,
+        status: "pending",
       };
     case CHECKOUT:
       return {
         ...state,
         orders: [action.order, ...state.orders],
+        status: "success",
       };
     case ORDER_ERRORS:
       return {

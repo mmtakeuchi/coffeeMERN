@@ -108,6 +108,11 @@ const Navbar = (props) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
+  const handleLogout = () => {
+    props.logout();
+    history.push("/products");
+  };
+
   const authenticatedLinks = () => {
     if (props.current.isAuthenticated) {
       return (
@@ -195,7 +200,7 @@ const Navbar = (props) => {
             </Button>
           </MenuItem>
           <MenuItem>
-            <Button onClick={() => props.logout()}>Logout</Button>
+            <Button onClick={handleLogout}>Logout</Button>
           </MenuItem>
         </div>
       ) : (

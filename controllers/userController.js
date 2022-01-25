@@ -29,7 +29,7 @@ module.exports.register = async (req, res) => {
 
   const user = await User.findOne({ name: req.body.name });
   if (user) {
-    errors.name = "User already exists";
+    const errors = "User already exists";
     return res.status(400).json(errors);
   } else {
     const newUser = new User({

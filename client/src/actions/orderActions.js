@@ -34,7 +34,7 @@ export const chargeOrder = (id, source) => (dispatch) => {
   axios
     .post(`/api/orders/${id}`, { source })
     .then((res) => {
-      dispatch(checkout(res.data));
+      return dispatch(checkout(res.data));
     })
     .catch((err) => dispatch(receiveErrors(err.response.data)));
 };
