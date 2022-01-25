@@ -49,7 +49,6 @@ export const addToCart = (userId, productId, count) => (dispatch) => {
   axios
     .post(`/api/cart/${userId}`, { productId, count })
     .then((res) => {
-      console.log(res);
       dispatch(addCartItem(res.data));
     })
     .catch((err) => {
