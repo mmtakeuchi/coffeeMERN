@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
     color: "blue",
   },
 }));
-// margin-top: auto;
+
 const Footer = () => {
   const classes = useStyles();
 
@@ -33,8 +33,9 @@ const Footer = () => {
       <div className={classes.copy}>&copy; Coffee Shop 2020</div>
 
       <a
-        href="https://github.com/mmtakeuchi/coffee_shop"
+        href="https://github.com/mmtakeuchi/coffeeMERN"
         target="_blank"
+        rel="noreferrer"
         className={classes.link}
       >
         <GitHubIcon fontSize="small" />

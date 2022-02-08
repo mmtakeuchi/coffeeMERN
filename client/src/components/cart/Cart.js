@@ -94,10 +94,10 @@ const Cart = (props) => {
     <div className={classes.root}>
       {current.isAuthenticated ? (
         <React.Fragment>
-          {cart.cart ? null : <div>Your cart is empty!</div>}
+          {cart.cart ? null : <h2>Your cart is empty!</h2>}
         </React.Fragment>
       ) : (
-        <div>Log In to View Your Cart</div>
+        <h1>Log In to View Your Cart</h1>
       )}
 
       {current.isAuthenticated && cart.cart ? (
