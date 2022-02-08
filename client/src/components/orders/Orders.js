@@ -57,6 +57,7 @@ const useStyles = makeStyles({
   },
   link: {
     textDecoration: "none",
+    color: "black",
   },
   quantity: {
     fontSize: "1.1em",
@@ -111,7 +112,7 @@ const Orders = (props) => {
                   {renderDate(order.date_added)}
                 </div>
                 <div className={classes.price}>
-                  <strong>Total: </strong>${order.totalPrice}
+                  <strong>Total: </strong>${order.totalPrice.toFixed(2)}
                 </div>
               </div>
               <div key={i} className={classes.table}>

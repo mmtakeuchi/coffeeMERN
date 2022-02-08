@@ -53,7 +53,7 @@ const Product = ({ product }) => {
         </CardActionArea>
         <CardActions>
           <Typography variant="body1" color="textSecondary" component="p">
-            ${product.price}
+            ${product.price.toFixed(2)}
           </Typography>
         </CardActions>
       </Card>

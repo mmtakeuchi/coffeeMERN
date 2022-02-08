@@ -22,7 +22,7 @@ module.exports.checkout = async (req, res) => {
     let cart = await Cart.findOne({ user: userId });
     if (cart) {
       const charge = await stripe.charges.create({
-        amount: parseFloat(cart.bill.toFixed(2) * 100),
+        amount: parseInt(cart.bill * 100),
         currency: "usd",
         source: source,
       });
