@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
-import { getProduct, deleteProduct } from "../../actions/productActions";
-import { addToCart } from "../../actions/cartActions";
-import { makeStyles } from "@material-ui/core/styles";
-import { Paper, Button, TextField, Grid } from "@material-ui/core";
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { getProduct, deleteProduct } from '../../actions/productActions';
+import { addToCart } from '../../actions/cartActions';
+import { makeStyles } from '@material-ui/core/styles';
+import { Paper, Button, TextField, Grid } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -12,40 +12,40 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     padding: theme.spacing(2),
-    textAlign: "left",
-    color: "black",
+    textAlign: 'left',
+    color: 'black',
     // color: theme.palette.text.secondary,
   },
   image: {
     // width: "90%",
     // height: "50vh",
     // objectFit: "cover",
-    margin: "auto",
-    display: "block",
-    maxWidth: "100%",
-    maxHeight: "100%",
+    margin: 'auto',
+    display: 'block',
+    maxWidth: '100%',
+    maxHeight: '100%',
   },
   title: {
-    fontSize: "40px",
-    marginBottom: "0px",
+    fontSize: '40px',
+    marginBottom: '0px',
   },
   quantity: {
-    width: "6em",
-    textAlign: "left",
-    marginBottom: "1em",
+    width: '6em',
+    textAlign: 'left',
+    marginBottom: '1em',
   },
   button: {
-    background: "orange",
+    background: 'orange',
   },
   error: {
-    color: "red",
-    marginBottom: "1em",
+    color: 'red',
+    marginBottom: '1em',
   },
   update: {
-    color: "blue",
+    color: 'blue',
   },
   delete: {
-    color: "red",
+    color: 'red',
   },
 }));
 
@@ -54,8 +54,8 @@ const ProductDetail = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const productId = props.match.params.id;
-  const [quantity, setQuantity] = useState("1");
-  const [error, setError] = useState("");
+  const [quantity, setQuantity] = useState('1');
+  const [error, setError] = useState('');
   const product = useSelector((state) => state.products.products);
   const current = useSelector((state) => state.session);
 
@@ -68,8 +68,8 @@ const ProductDetail = (props) => {
   const validateQuantity = () => {
     let valid = true;
 
-    if (quantity === "" || quantity <= 0) {
-      setError("Please enter a valid amount.");
+    if (quantity === '' || quantity <= 0) {
+      setError('Please enter a valid amount.');
       valid = false;
     } else if (quantity > product.stock) {
       setError(
@@ -95,7 +95,7 @@ const ProductDetail = (props) => {
 
   const handleDelete = () => {
     dispatch(deleteProduct(productId));
-    history.push("/products");
+    history.push('/products');
   };
 
   return (
@@ -137,7 +137,7 @@ const ProductDetail = (props) => {
                     : null}
                 </h3>
                 <div>{product.description}</div>
-                <body1>{product.price}</body1>
+                <body1>$ {product.price}</body1>
                 <br />
                 <br />
                 {error && <div className={classes.error}>{error}</div>}
